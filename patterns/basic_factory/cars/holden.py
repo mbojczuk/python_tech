@@ -3,9 +3,9 @@ from .car_base import CarBase
 
 # Concrete implementations of different car types
 @dataclass
-class Jeep(CarBase):
+class Holden(CarBase):
     def start(self) -> str:
-        return f"{self.name} rumbles on."
+        return f"{self.make} {self.model} is starting silently."
     
     def stop(self) -> str:
-        return f"{self.name} is stopping with off-road brakes."
+        return f"{self.make} {self.model} is stopping with regenerative braking."

@@ -1,14 +1,10 @@
+from dataclasses import dataclass
 from abc import ABC, abstractmethod
 # This is the abstract base class defining the interface
-
+@dataclass
 class CarBase(ABC):
-    @property
-    def name(self) -> str:
-        return self._name
-    
-    @name.setter
-    def name(self, name: str):
-        self._name = name
+    make: str
+    model: str
 
     @abstractmethod
     def start(self) -> str:

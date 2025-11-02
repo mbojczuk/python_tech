@@ -5,7 +5,7 @@ from .car_base import CarBase
 @dataclass
 class Ford(CarBase):
     def start(self) -> str:
-        return f"{self.make} {self.model} roars to life!"
+        return f"{self.name} roars to life!"
     
     def stop(self) -> str:
-        return f"{self.make} {self.model} is stopping with traditional brakes."
+        return f"{self.name} is stopping with traditional brakes."

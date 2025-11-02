@@ -1,8 +1,6 @@
-from factory import AutoFactory
+from factories import loader
 
-factory = AutoFactory()
-
-for car_name in ("Ford", "Holden", "Jeep"):
-    car = factory.cars[car_name](make=car_name, model="Model X")
-    print(car.start())
-    print(car.stop())
+for factory_name in ['ford_factory', 'holden_factory', 'jeep_factory']:
+    factory = loader.load_factory(factory_name)
+    car = factory.create_car()
+    print(f"Created car: {car.name}, Start: {car.start()}, Stop: {car.stop()}")
