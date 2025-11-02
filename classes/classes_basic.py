@@ -1,4 +1,25 @@
+from datetime import date
+
 class Employee:
+
+    __slots__ = ("name", "age", "position", "_salary", "_annual_Salary")  # memory optimization by restricting attributes
+    minimum_wage = 1500.0  # class variable shared across all instances
+
+    # if we wanted to change the minimum wage at the class level instead of instance level we could use a class method
+    # cls is short for class FYI
+    # so this changes the minimum wage for all instances of the class
+    @classmethod
+    def set_minimum_wage(cls, new_wage: float) -> None:
+        if new_wage  > 3000.0:
+            raise ValueError("Minimum wage cannot exceed 3000.0")
+        cls.minimum_wage = new_wage
+
+    @classmethod
+    def new_employee(cls, name: str, dob: date) -> 'Employee':
+        now = date.today()
+        age = now.year - dob.year - ((now.month, now.day) < (dob.month, dob.day))
+        return cls(name, age, "Unknown", cls.minimum_wage)
+
     def __init__(self, name: str, age: int, position: str, salary: float):
         self.name = name
         self.age = age
@@ -28,8 +49,8 @@ class Employee:
     # provide the functionality to set the salary with some validation
     @salary.setter
     def salary(self, new_salary: float) -> None:
-        if new_salary < 1000.0:
-            raise ValueError("Salary must be at least 1000.0")
+        if new_salary < Employee.minimum_wage:
+            raise ValueError(f"Salary must be at least {Employee.minimum_wage}")
         self._annual_Salary = None  # reset cached annual salary on salary change
         self._salary = new_salary
         
@@ -54,3 +75,14 @@ if __name__ == "__main__":
     emp.salary = 2000  # Setting salary via property with validation
     print(emp.salary)
     print(emp.annual_salary)
+
+    print(Employee.minimum_wage)  # Accessing class variable
+    Employee.set_minimum_wage(2200.0)  # Changing class variable via class method
+    print(Employee.minimum_wage)
+    print(emp.minimum_wage)  # Accessing class variable via instance
+    print(emp._annual_Salary)  # Accessing private attribute directly (not recommended)
+    print(emp.salary)
+
+    # factory function usage
+    e = Employee.new_employee("Bob", date(1990, 5, 15))  # Creating new employee using alternative constructor
+    print(e)

@@ -1,9 +1,11 @@
+from dataclasses import dataclass
+from abc import ABC, abstractmethod
 # Base Test Class
-class BaseTest():
-    def __init__(self, name: str):
-        self.name = name
-
+@dataclass
+class BaseTest(ABC):
+    name: str
     # Property for name makes it like a read only data attribute
+
     @property
     def name(self) -> str:
         return self._name
@@ -13,14 +15,15 @@ class BaseTest():
     def name(self, value: str) -> None:
         self._name = value
 
+    @abstractmethod
     def run(self) -> str:
-        pass
+        raise NotImplementedError
 
-    def __str__(self):
-        return f"Test Name: {self.name}"
+class DBT_test(BaseTest):
 
+    def run(self) -> str:
+        return f"Running DBT test: {self.name}"
 
 if __name__ == "__main__":
-    test = BaseTest("Sample Test")  # This will raise an error since BaseTest is abstract
-    print(test.name)
-    print(test)
+    test = DBT_test("SampleTest")
+    print(f"Test Name: {test.name}")
