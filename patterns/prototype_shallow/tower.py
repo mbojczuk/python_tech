@@ -30,4 +30,5 @@ class Tower(AbsPrototype, AbsComputer):
 
     def clone(self):
         # creating a copy of the current object
-        return copy.copy(self)
+        # return copy.copy(self)
+        return copy.deepcopy(self)
