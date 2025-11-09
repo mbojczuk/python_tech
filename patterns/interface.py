@@ -4,6 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class MyClass(ABC):
     _myprop: int
+    some_value: str
 
     def do_something(self, value):
         self._myprop *= value
